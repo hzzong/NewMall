@@ -1,5 +1,6 @@
 package com.example.newmall.api;
 
+import com.example.newmall.api.param.UserLoginParam;
 import com.example.newmall.api.param.UserRegisterParam;
 import com.example.newmall.common.ServiceEnum;
 import com.example.newmall.service.UserService;
@@ -48,5 +49,13 @@ public class UserAPI {
         }
         //注册失败
         return resultGenerator.genFailResult(registerResult);
+    }
+
+    @PostMapping("/user/login")
+    public  Result login(@RequestBody @Valid UserLoginParam param){
+        if (phoneUtil.isNotPhoneNumber(param.getLoginName())){
+            return resultGenerator.genFailResult(ServiceEnum.LOGIN_NAME_IS_NOT_PHONE.getResult());
+        }
+        String loginResult = userService.login(param.getLoginName(), param.getPassword());
     }
 }

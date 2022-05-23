@@ -5,5 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserService {
 
-    String register(String login, String password);
+    String register(String loginName, String password);
+
+    String login(String loginName, String password);
 }

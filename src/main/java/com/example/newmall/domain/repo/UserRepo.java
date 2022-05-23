@@ -9,4 +9,6 @@ public interface UserRepo extends CrudRepository<User, Long> {
 
     User save(User user);
 
+    User findUserByLoginNameAndPassword(String loginName, String password);
+
 }
