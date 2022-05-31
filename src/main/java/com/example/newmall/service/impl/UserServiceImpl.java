@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         registerUser.setLoginName(loginName);
         registerUser.setNickName(loginName);
         registerUser.setIntroduceSign("Welcome!");
-        registerUser.setPasswordMd5(password);
+        registerUser.setPassword(password);
         if (userRepo.save(registerUser) != null) {
             return ServiceEnum.SUCCESS.getResult();
         }
@@ -55,15 +55,15 @@ public class UserServiceImpl implements UserService {
             return ServiceEnum.LOGIN_ERROR.getResult();
         }
         //登录后即执行修改token的操作
-        String token = getNewToken(System.currentTimeMillis() + "", user.getUserId());
-        UserToken userToken = userTokenRepo.findUserTokenByUserId(user.getUserId());
+        String token = getNewToken(System.currentTimeMillis() + "", user.getId());
+        UserToken userToken = userTokenRepo.findUserTokenByUserId(user.getId());
         //当前时间
         Date now = new Date();
         //过期时间
         Date expireTime = new Date(now.getTime() + 2 * 24 * 3600 * 1000);//过期时间 48 小时
         if (userToken == null) {
             userToken = new UserToken();
-            userToken.setUserId(user.getUserId());
+            userToken.setUserId(user.getId());
             //新增一条token数据
         }
         userToken.setToken(token);

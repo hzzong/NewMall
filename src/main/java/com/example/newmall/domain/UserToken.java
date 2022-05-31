@@ -2,10 +2,14 @@ package com.example.newmall.domain;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Date;
+@Entity
 @Data
 public class UserToken {
 
+    @Id
     private Long userId;
 
     private String token;
